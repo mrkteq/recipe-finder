@@ -44,7 +44,7 @@ $(document).ready(function() {
                   <div class="recipe-content">
                       <h3 class="recipe-title">${recipe.title}</h3>
                       <p class="recipe-ingredients">
-                          <strong>Requires:</strong> ${missingIngredients}
+                          <strong>Includes:</strong> ${missingIngredients}
                       </p>
                       <a href="${recipe.sourceUrl}" 
                         target="_blank"
