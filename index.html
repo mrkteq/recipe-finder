@@ -8,21 +8,38 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥗</text></svg>">
     <script src="./js/jquery.js"></script>
 </head>
+<body>
     <div class="container">
         <h1>Vegan Recipe Finder</h1>
         
-        <form id="recipeForm" class="form">
+        <form id="recipeForm" class="form" aria-label="Recipe Finder Form">
             <div class="form-group">
-                <label for="ingredients">Enter ingredients (comma separated)</label>
-                <input type="text" 
-                       id="ingredients" 
-                       placeholder="onion, potato, tomato">
-                <p class="hint">Minimum 2 ingredients required</p>
+                <label for="apiSelect">Choose Recipe API</label>
+                <select id="apiSelect" aria-label="Choose Recipe API">
+                    <option value="spoonacular" id="spoonacularOption">Spoonacular (needs API key)</option>
+                    <option value="themealdb">TheMealDB (no API key required)</option>
+                </select>
+                <small class="hint" id="apiKeyHint" style="display:none; color: var(--color-error);">Spoonacular is disabled because no API key is set.</small>
+                <small class="hint">TheMealDB is free and does not require credentials.</small>
             </div>
-            <button type="submit">Find Recipes</button>
+            <div class="form-group">
+                <label for="ingredient-input">Enter ingredients</label>
+                <div id="ingredient-chips" class="chips-input" aria-live="polite">
+                    <input type="text" 
+                           id="ingredient-input" 
+                           placeholder="Type an ingredient and press Enter or comma"
+                           aria-label="Ingredient input">
+                </div>
+                <p class="hint">Minimum 1 ingredient required</p>
+            </div>
+            <button type="submit" id="findRecipesBtn" disabled>Find Recipes</button>
         </form>
 
-        <div id="results" class="results"></div>
+        <div id="results" class="results" aria-live="polite">
+            <div class="results-placeholder">
+                <p>Enter at least 2 ingredients to find delicious vegan recipes!</p>
+            </div>
+        </div>
         
         <!-- Loading State Template -->
         <template id="loadingTemplate">
