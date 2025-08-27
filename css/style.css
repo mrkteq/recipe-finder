@@ -61,13 +61,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #111827;
-    --color-background-dark: #1f2937;
-    --color-primary: #6366f1;
-    --color-primary-dark: #4f46e5;
-    --color-text: #f3f4f6;
-    --color-text-secondary: #9ca3af;
-    --color-border: rgba(255, 255, 255, 0.1);
+  --color-background: #646464;
+  --color-background-dark: #076862;
+  --color-primary: #4CAF50;
+  --color-primary-dark: #673AB7;
+  --color-error: #3F51B5;
+  --color-warning: #2196f3;
+  --color-text: #000;
+  --color-text-secondary: #afafaf;
+  --color-border: #009688;
     
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
@@ -79,7 +81,7 @@
 
 body {
   font-family: var(--font-family-base);
-  background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+  background: var(--color-background);
   min-height: 100vh;
   color: var(--color-text);
   line-height: 1.5;
@@ -93,7 +95,7 @@ body::before {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 0;
-  background: linear-gradient(120deg, #a7f3d0 0%, #f0abfc 100%);
+  background: linear-gradient(120deg, var(--color-primary) 0%, var(--color-background-dark) 100%);
   opacity: 0.25;
   pointer-events: none;
 }
@@ -103,7 +105,7 @@ body::before {
   z-index: 1;
   max-width: 60rem;
   margin: 2rem auto;
-  background: rgba(255,255,255,0.95);
+  background: var(--color-background-dark);
   padding: 32px 32px 32px 32px;
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 10px rgba(0,0,0,0.08);
@@ -120,7 +122,7 @@ body::before {
 h1 {
   font-size: 2.5rem;
   text-align: center;
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   margin: 20px 0;
   padding: 10px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -191,7 +193,7 @@ input:focus {
 
 button {
   width: 100%;
-  background-color: var(--color-primary);
+  background-color: var(--color-warning);
   color: white;
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -204,7 +206,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
@@ -218,6 +220,7 @@ button:active {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-sm);
+  position: relative; /* Add this to allow absolute positioning inside */
 }
 
 @media (min-width: 700px) {
@@ -271,14 +274,14 @@ button:active {
 .recipe-link {
   display: inline-block;
   margin-top: var(--spacing-sm);
-  color: var(--color-primary);
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-weight: var(--font-weight-medium);
   transition: color var(--transition-fast);
 }
 
 .recipe-link:hover {
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
 }
 
 .alert {
@@ -352,7 +355,7 @@ button:active {
 .chip {
   display: flex;
   align-items: center;
-  background: var(--color-primary);
+  background: var(--color-text-secondary);
   color: #fff;
   border-radius: 1rem;
   padding: 0.25rem 0.75rem 0.25rem 0.75rem;
@@ -378,6 +381,10 @@ button:active {
   outline: 2px solid var(--color-primary-dark);
 }
 
+input::placeholder {
+  color: var(--color-text-secondary);
+}
+
 .chips-input input[type="text"] {
   border: none;
   outline: none;
@@ -396,7 +403,7 @@ button:active {
 
 #findRecipesBtn[disabled] {
   background: var(--color-border);
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -431,7 +438,7 @@ button:active {
   color: var(--color-text-secondary);
   font-size: 1.2em;
   margin: 2.5rem 0;
-  background: rgba(255,255,255,0.7);
+  background: var(--color-background-dark);
   border-radius: 1rem;
   padding: 2rem 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -458,7 +465,7 @@ button:active {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-background);
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-md);
   margin-bottom: var(--spacing-xs);
 }
@@ -478,9 +485,15 @@ button:active {
 }
 
 .api-source {
+  position: absolute;
+  top: -1.5rem;
+  left: 2rem;
   text-align: right;
   font-size: 0.95em;
-  color: var(--color-primary-dark);
+  color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
   opacity: 0.8;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
 }

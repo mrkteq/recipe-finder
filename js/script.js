@@ -2,10 +2,9 @@ $(document).ready(function() {
   const API_KEY = 'b22215ea558041eea2db1e04e6c5d44d';
   const RECIPES_TO_SHOW = 3;
   let requestCount = 0;
-  const MAX_REQUESTS = 10; // Per minute limit for safety
+  const MAX_REQUESTS = 10;
   let searchOffset = 0;
 
-  // --- Chips/tag input logic ---
   let ingredients = [];
   const $chipsInput = $('#ingredient-chips');
   const $ingredientInput = $('#ingredient-input');
@@ -15,7 +14,6 @@ $(document).ready(function() {
   const $spoonacularOption = $('#spoonacularOption');
   const $apiKeyHint = $('#apiKeyHint');
 
-  // Disable Spoonacular if no API key
   if (!API_KEY) {
     $spoonacularOption.prop('disabled', true);
     $apiSelect.val('themealdb');
@@ -56,7 +54,6 @@ $(document).ready(function() {
         updateButtonState();
       }
     } else if (e.key === 'Backspace' && !$ingredientInput.val() && ingredients.length) {
-      // Remove last chip on backspace if input is empty
       ingredients.pop();
       renderChips();
       updateButtonState();
@@ -64,7 +61,6 @@ $(document).ready(function() {
   });
 
   $ingredientInput.on('blur', function() {
-    // Add chip on blur if input has value
     const value = $ingredientInput.val().trim();
     if (value && !ingredients.includes(value)) {
       ingredients.push(value);
@@ -73,8 +69,6 @@ $(document).ready(function() {
       updateButtonState();
     }
   });
-
-  // --- End chips/tag input logic ---
 
   function showLoading() {
     $findBtn.addClass('loading').prop('disabled', true);
@@ -122,8 +116,7 @@ $(document).ready(function() {
         </div>
       `;
     }).join('');
-    $results.html(`<div class="api-source">Results from <strong>${apiName}</strong>${relaxed ? ' (relaxed match)' : ''}</div>` + recipeHTML);
-    // Scroll to results
+    $results.html(`<div class="api-source">Vegan Recipes from <strong>${apiName}.</strong>${relaxed ? ' (relaxed match)' : ''}</div>` + recipeHTML);
     $('html, body').animate({ scrollTop: $results.offset().top - 30 }, 400);
   }
 
@@ -158,9 +151,8 @@ $(document).ready(function() {
 
   function fetchTheMealDB() {
     showLoading();
-    // TheMealDB vegan filter: https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegan
     $.ajax({
-      url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegan',
+      url: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian',
       method: 'GET',
       success: function(response) {
         const meals = response.meals || [];
@@ -183,7 +175,6 @@ $(document).ready(function() {
               ingredients: Array.from({length: 20}, (_, i) => meal['strIngredient' + (i+1)]).filter(Boolean)
             }));
           } else {
-            // Relaxed: show meals that match ANY entered ingredient, sorted by number of matches
             filtered = detailsArr.map(d => d.meals[0]).map(meal => {
               const mealIngredients = [];
               for (let i = 1; i <= 20; i++) {
@@ -233,12 +224,10 @@ $(document).ready(function() {
     }
   });
 
-  // Reset request count every minute
   setInterval(function() {
     requestCount = 0;
   }, 60000);
 
-  // Initial render
   renderChips();
   updateButtonState();
 });
