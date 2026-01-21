@@ -9,10 +9,14 @@
     <script src="./js/jquery.js"></script>
 </head>
 <body>
+    <a href="#recipeForm" class="skip-link">Skip to main content</a>
     <div class="container">
-        <h1>Vegan Recipe Finder</h1>
-        
-        <form id="recipeForm" class="form" aria-label="Recipe Finder Form">
+        <header>
+            <h1>Vegan Recipe Finder</h1>
+        </header>
+
+        <main id="main-content">
+            <form id="recipeForm" class="form" aria-label="Recipe Finder Form">
             <div class="form-group">
                 <label for="apiSelect">Choose Recipe API</label>
                 <select id="apiSelect" aria-label="Choose Recipe API">
@@ -34,27 +38,37 @@
             <button type="submit" id="findRecipesBtn" disabled>Find Recipes</button>
         </form>
 
-        <div id="results" class="results" aria-live="polite">
-            <div class="results-placeholder">
-                <p>Enter at least 2 ingredients to find delicious vegan recipes!</p>
-            </div>
-        </div>
+            <section aria-labelledby="results-heading">
+                <h2 id="results-heading" class="visually-hidden">Recipe Results</h2>
+                <div id="results" class="results" aria-live="polite">
+                    <div class="results-placeholder">
+                        <p>Enter at least 2 ingredients to find delicious vegan recipes!</p>
+                    </div>
+                </div>
+            </section>
         
-        <!-- Loading State Template -->
-        <template id="loadingTemplate">
-            <div class="loading">
-                <div class="loading-item loading-line-1"></div>
-                <div class="loading-item loading-line-2"></div>
-                <div class="loading-item loading-line-3"></div>
-            </div>
-        </template>
+            <!-- Loading State Template -->
+            <template id="loadingTemplate">
+                <div class="loading">
+                    <div class="loading-item loading-line-1"></div>
+                    <div class="loading-item loading-line-2"></div>
+                    <div class="loading-item loading-line-3"></div>
+                </div>
+            </template>
 
-        <!-- Error State Template -->
-        <template id="errorTemplate">
-            <div class="alert alert-error">
-                <p>Sorry, we couldn't find any recipes right now. Please try again later.</p>
-            </div>
-        </template>
+            <!-- Error State Template -->
+            <template id="errorTemplate">
+                <div class="alert alert-error">
+                    <p>Sorry, we couldn't find any recipes right now. Please try again later.</p>
+                </div>
+            </template>
+
+            <noscript>
+                <div class="alert alert-warning">
+                    <p>JavaScript is required to search for recipes. Please enable JavaScript in your browser settings.</p>
+                </div>
+            </noscript>
+        </main>
     </div>
 
     <script src="./js/script.js"></script>
