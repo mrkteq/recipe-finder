@@ -4,8 +4,6 @@ Search and filter recipe data with Edamam API integration, demonstrating async J
 
 ![Recipe Finder Screenshot](/Screenshot.png)
 
-**[Live Demo](https://kitchenhero.netlify.app/)** | **[Portfolio](https://marktucker-portfolio.netlify.app/)**
-
 ## Tech Stack
 
 - **JavaScript (ES6+)** - Async/await, fetch API, array methods
